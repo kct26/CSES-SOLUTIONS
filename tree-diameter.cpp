@@ -10,12 +10,11 @@ int n;
 bool visited[MAX];
 int par[MAX];
 vector<vector<int>> adj;
-vector<int> topo, sz;
+vector<int> topo;
 
 void process() {
     cin >> n;
     adj.resize(n + 1);
-    sz.resize(n + 1, 1);
     for (int i = 0; i < n - 1; i++){
         int u,v;
         cin >> u >> v;
