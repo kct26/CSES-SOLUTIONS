@@ -4,7 +4,6 @@ using namespace std;
 #define lb long double
 #define mod 1000000007
 
-
 const int MAX = 2 * (int) 1e5 + 5;
 int n;
 bool visited[MAX];
