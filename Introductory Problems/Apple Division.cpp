@@ -5,27 +5,19 @@ using lb = long double;
 
 const int MOD = 1000000007;
 const int MAX = 25;
-const ll INF = 4e18;
-int n;
-ll a[MAX], dp[1 << MAX];
-ll total, ans;
+
+ll n, a[MAX];
+
+ll solve(ll idx, ll sum1, ll sum2){
+    if (idx == n) return abs(sum1 - sum2);
+    return min(solve (idx + 1, sum1 + a[idx], sum2),
+               solve (idx + 1, sum1, sum2 + a[idx]));
+}
 
 void process() {
     cin >> n;
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-        total += a[i];
-    }
-    ans = INF;
-    for (int bitmask = 0; bitmask < (1 << n); bitmask++){
-        for (int i = 0; i < n; i++) {
-            if ((bitmask & (1 << i)) == 0) continue;
-            dp[bitmask] += a[i];
-        }
-        ll remain = total - dp[bitmask];
-        ll dif = abs(remain - dp[bitmask]);
-        ans = min(ans, dif);
-    }
+    for (int i = 0; i < n; i++) cin >> a[i];
+    ll ans = solve(0,0,0);
     cout << ans;
 }
 
