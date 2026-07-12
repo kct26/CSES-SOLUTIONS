@@ -4,20 +4,21 @@ using ll = long long;
 using lb = long double;
 
 const int MOD = 1000000007;
+const int MAX = 25;
 
-int n;
+ll n, a[MAX];
 
-void dfs(int cur, int from, int to){
-    if (cur == 0) return;
-    dfs(cur - 1, from, 6 - to - from);
-    cout << from << " " << to << "\n";
-    dfs(cur - 1, 6 - to - from, to);
+ll solve(ll idx, ll sum1, ll sum2){
+    if (idx == n) return abs(sum1 - sum2);
+    return min(solve (idx + 1, sum1 + a[idx], sum2),
+               solve (idx + 1, sum1, sum2 + a[idx]));
 }
 
 void process() {
     cin >> n;
-    cout << (1 << n) - 1 << "\n";
-    dfs(n, 1, 3);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    ll ans = solve(0,0,0);
+    cout << ans;
 }
 
 int main() {
