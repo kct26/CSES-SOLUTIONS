@@ -6,12 +6,11 @@ using lb = long double;
 const int MOD = 1000000007;
 const int MAX = 200005;
 int n;
-ll a[MAX];
+int a[MAX];
 
 void process() {
     cin >> n;
     for (int i = 0; i < n; i++) cin >> a[i];
-    sort(a, a + n);
     ll ans = 1;
     for (int i = 0; i < n; i++){
         if (a[i] > ans) {
