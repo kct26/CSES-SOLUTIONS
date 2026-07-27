@@ -16,7 +16,7 @@ void process() {
     dp[0] = {1, 0};
     for (int bitmask = 0; bitmask < 1 << n; bitmask++){
         for (int j = 0; j < n; j++){
-            if (bitmask & (1 << j)) continue; // have included this person
+            if (bitmask & (1 << j)) continue; // have  included this person
             pair<int,ll> p = dp[bitmask];
             int min_ride = p.first, current_weight = p.second;
             if (current_weight + a[j] <= x) current_weight += a[j];
