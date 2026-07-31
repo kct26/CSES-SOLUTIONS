@@ -13,7 +13,7 @@ map<ll,int> seen;
 void process() {
     cin >> n >> target;
     for (int i = 0; i < n; i++) cin >> a[i];
-    seen[0] = 1;;
+    seen[0] = 1;
     for (int i = 0; i < n; i++){
         cur += a[i];
         ll need = cur - target;
