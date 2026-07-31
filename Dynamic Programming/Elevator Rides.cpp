@@ -4,28 +4,26 @@ using ll = long long;
 using lb = long double;
 
 const int MOD = 1000000007;
-const int MAX = 23;
+const int MAX = 25;
+
+ll w, a[MAX];
 int n;
-ll x, a[MAX];
-pair<int, ll> dp[1 << MAX]; // dp[bitmask] = {minimum rides, current weight}
+pair<int,int> dp[1 << MAX];
+
 
 void process() {
-    cin >> n >> x;
+    cin >> n >> w;
     for (int i = 0; i < n; i++) cin >> a[i];
-    fill(dp, dp + (1 << n), make_pair(n + 1, 0LL));
+    fill (dp, dp + (1 << n), make_pair(1e9, 1e9));
     dp[0] = {1, 0};
-    for (int bitmask = 0; bitmask < 1 << n; bitmask++){
+    for (int bitmask = 0; bitmask < (1 << n); bitmask++){
         for (int j = 0; j < n; j++){
-            if (bitmask & (1 << j)) continue; // have  included this person
-            pair<int,ll> p = dp[bitmask];
-            int min_ride = p.first, current_weight = p.second;
-            if (current_weight + a[j] <= x) current_weight += a[j];
-            else {
-                min_ride++;
-                current_weight = a[j];
-            }
+            if ((1 << j) & bitmask) continue;
             int next_mask = bitmask | (1 << j);
-            dp[next_mask] = min(dp[next_mask], {min_ride, current_weight});
+            if (dp[bitmask].second + a[j] <= w){
+                dp[next_mask] = min(dp[next_mask], {dp[bitmask].first, dp[bitmask].second + a[j]});
+            }
+            else dp[next_mask] = min(dp[next_mask], {dp[bitmask].first + 1, a[j]});
         }
     }
     cout << dp[(1 << n) - 1].first;
