@@ -17,24 +17,31 @@ void buildLog2(){
 
 void preprocess(){
     for (int i = 1; i <= n; i++) st[0][i] = a[i];
-    for (int i = 1; i <= LG; i++) {
-        for (int j = 1; j + (1 << i) - 1 <= n ; j++){
+    for (int i = 1; i <= LG; i++){
+        for (int j = 1; j <= n; j++){
             st[i][j] = min(st[i-1][j], st[i-1][j + (1 << (i - 1))]);
         }
     }
 }
 
 void process() {
-    int a, b;
-    cin >> a >> b;
-    int len = b - a + 1;
-    if (len == 1) {
-        cout << st[0][a] << "\n";
-        return;
+    cin >> n >> q;
+    for (int i = 1; i <= n; i++) cin >> a[i];
+    buildLog2();
+    preprocess();
+    while (q--){
+        int a,b; cin >> a >> b;
+        int len = (b - a + 1);
+        if (len == 1){
+            cout << st[0][a] << "\n";
+            continue;
+        }
+        int log = lg2[len];
+        int ans = min(st[log][a], st[log][b - (1 << log) + 1]);
+        cout << ans << "\n";
     }
-    int log = lg2[len];
-    int ans = min(st[log][a], st[log][b - (1 << log) + 1]);
-    cout << ans << "\n";
+    
+    
 }
 
 int main() {
@@ -44,11 +51,9 @@ int main() {
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
+
     int test = 1;
-    cin >> n >> test;
-    for (int i = 1; i <= n; i++) cin >> a[i];
-    buildLog2();
-    preprocess();
+    // cin >> test;
     while (test--) {
         process();
     }
