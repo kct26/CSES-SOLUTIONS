@@ -12,14 +12,14 @@ void process() {
     cin >> n >> m >> k;
     for (int i = 0; i < n; i++) cin >> applicants[i];
     for (int i = 0; i < m; i++) cin >> apartments[i];
-    int used = 0;
+    int cur = 0;
     sort(applicants, applicants + n);
     sort(apartments, apartments + m);
     for (int i = 0; i < n; i++){
-        while (used < m && apartments[used] < applicants[i] - k) used++;
-        if (apartments[used] >= applicants[i] - k && apartments[used] <= applicants[i] + k){
+        while (cur < m && apartments[cur] < applicants[i] - k) cur++;
+        if (apartments[cur] >= applicants[i] - k && apartments[cur] <= applicants[i] + k){
             cnt++;
-            used++;
+            cur++;
         }
     }
     cout << cnt;
